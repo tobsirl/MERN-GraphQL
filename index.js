@@ -1,6 +1,7 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+const crypto = require('crypto');
 
 const db = {
   users: [
@@ -28,6 +29,11 @@ const db = {
 const schema = buildSchema(`
   type Query {
     users: [User!]!
+    user(id: ID!):User
+  }
+
+  type Mutation {
+    addUser(email: String!, name: String): User
   }
 
   type User {
@@ -39,16 +45,28 @@ const schema = buildSchema(`
 `);
 
 const rootValue = {
-  users: () => db.users
-}
+  users: () => db.users,
+  user: args => db.users.find(user => user.id === args.id),
+  addUser: ({ email, name }) => {
+    const user = {
+      id: crypto.randomBytes(10).toString('hex'),
+      email,
+      name
+    };
+
+    db.users.push(user);
+
+    return user;
+  }
+};
 
 const app = express();
 
 app.use(
   '/graphql',
   graphqlHTTP({
-    schema: schema,
-    rootValue: root,
+    schema,
+    rootValue,
     graphiql: true
   })
 );
