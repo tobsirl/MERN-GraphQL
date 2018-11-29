@@ -23,6 +23,11 @@ const db = {
       name: 'Jane',
       avatarUrl: 'https://gravatar.com/...'
     }
+  ],
+  messages: [
+    { id: '1', userId: '1', body: 'Hello', createdAt: Date.now() },
+    { id: '2', userId: '2', body: 'Hi', createdAt: Date.now() },
+    { id: '3', userId: '1', body: 'Hi Ho', createdAt: Date.now() }
   ]
 };
 
@@ -30,6 +35,7 @@ const schema = buildSchema(`
   type Query {
     users: [User!]!
     user(id: ID!):User
+    messages: [Message!]!
   }
 
   type Mutation {
