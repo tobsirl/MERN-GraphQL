@@ -48,6 +48,12 @@ const schema = buildSchema(`
     name: String
     avatarUrl: String
   }
+
+  type Message {
+    id: ID!
+    body: String!
+    createdAt: String
+  }
 `);
 
 const rootValue = {
