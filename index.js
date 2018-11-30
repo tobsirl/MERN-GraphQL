@@ -1,6 +1,4 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
+const {ApolloServer, gql} = require('apollo-server')
 const crypto = require('crypto');
 
 const db = {
@@ -40,7 +38,7 @@ class User {
   }
 }
 
-const schema = buildSchema(`
+const typeDefs = gql`
   type Query {
     users: [User!]!
     user(id: ID!):User
@@ -64,7 +62,7 @@ const schema = buildSchema(`
     body: String!
     createdAt: String
   }
-`);
+`;
 
 const rootValue = {
   users: () => db.users.map(user => new User(user)),

@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/tobsirl/MERN-GraphQL#readme",
   "dependencies": {
-    "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
+    "apollo-server": "^2.2.5",
     "graphql": "^14.0.2"
   }
 }
