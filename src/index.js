@@ -8,6 +8,8 @@ require('dotenv').config();
 
 const app = express();
 
+const { PORT, NODE_ENV } = process.env;
+
 app.disable('x-powered-by');
 
 const server = new ApolloServer({
