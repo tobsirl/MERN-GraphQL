@@ -1,5 +1,4 @@
 import user from './user';
+import root from './root';
 
-
-
-export default [user];
+export default [root, user];
