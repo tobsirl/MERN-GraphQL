@@ -1,8 +1,8 @@
 import { ApolloServer, gql } from 'apollo-server-express';
 import express from 'express';
 
-import typeDefs from './typeDefs/user';
-import resolvers from './resolvers/resolvers';
+import typeDefs from './typeDefs';
+import resolvers from './resolvers';
 
 require('dotenv').config();
 

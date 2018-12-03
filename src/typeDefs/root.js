@@ -2,14 +2,14 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
   type Query {
-    empty: String
+    _: String
   }
 
   type Mutation {
-    empty: String
+    _: String
   }
 
   type Subscription {
-    empty: String
+    _: String
   }
 `;
