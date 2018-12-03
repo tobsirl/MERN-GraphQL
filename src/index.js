@@ -1,5 +1,6 @@
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import mongoose from 'mongoose';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
@@ -8,7 +9,19 @@ require('dotenv').config();
 
 const app = express();
 
-const { PORT, NODE_ENV } = process.env;
+const { PORT, NODE_ENV, mongoDB } = process.env;
+
+mongoose
+  .connect(
+    mongoDB,
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log(`Connected to MongoDB`);
+  })
+  .catch(() => err => {
+    console.log(err);
+  });
 
 app.disable('x-powered-by');
 
