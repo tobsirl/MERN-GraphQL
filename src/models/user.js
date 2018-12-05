@@ -13,9 +13,13 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
-    hash(this.password)
+    try {
+      this.password = await hash(this.password, 10);
+    } catch (error) {
+      next(error);
+    }
   }
   next();
 });
