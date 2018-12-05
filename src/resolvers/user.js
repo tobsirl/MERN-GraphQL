@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { UserInputError } from 'apollo-server-express';
 
-import { User } from '../models/user';
+import User from '../models/user';
 
 export default {
   Query: {
@@ -10,7 +10,7 @@ export default {
       return User.find({});
     },
     user: (root, { id }, context, info) => {
-      // TODO auth, projection, sanitization 
+      // TODO auth, projection, sanitization
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new UserInputError(`${id} is not a valid user ID.`);
       }
@@ -19,6 +19,12 @@ export default {
     }
   },
   Mutation: {
-    signUp: (root, args, context, info) => {}
+    signUp: (root, args, context, info) => {
+      // TODO: not auth, validation
+
+      //await Joi.validate(args, SignUp, { abortEarly: false })
+
+      return User.create(args);
+    }
   }
 };
