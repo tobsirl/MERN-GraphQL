@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcryptjs from 'bcryptjs';
 import { UserInputError } from 'apollo-server-express';
 
 import User from '../models/user';
