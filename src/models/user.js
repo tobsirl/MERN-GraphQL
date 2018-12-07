@@ -1,9 +1,17 @@
 import mongoose from 'mongoose';
 import { hash } from 'bcryptjs';
+import { AsyncResource } from 'async_hooks';
 
 const userSchema = new mongoose.Schema(
   {
-    email: String,
+    email: {
+      type: String,
+      validate: {
+        validator: async email =>
+          (await User.where({ emial }).countDocuments()) === 0,
+        message: ({ value }) => `Email ${value} has already been taken.`
+      }
+    },
     username: String,
     name: String,
     password: String
@@ -24,4 +32,6 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-export default mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;
