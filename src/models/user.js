@@ -7,12 +7,17 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       validate: {
-        validator: async email =>
-          (await User.where({ emial }).countDocuments()) === 0,
+        validator: email => User.doesntExist({ email }),
         message: ({ value }) => `Email ${value} has already been taken.`
       }
     },
-    username: String,
+    username: {
+      type: String,
+      validate: {
+        validator: username => User.doesntExist({ username }),
+        message: ({ value }) => `Email ${value} has already been taken.`
+      }
+    },
     name: String,
     password: String
   },
@@ -31,6 +36,10 @@ userSchema.pre('save', async function(next) {
   }
   next();
 });
+
+userSchema.statics.doesntExist = async function(optons) {
+  return (await this.where(options).countDocuments()) === 0;
+};
 
 const User = mongoose.model('User', userSchema);
 
