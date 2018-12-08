@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import session from 'express-session';
 import { ApolloServer } from 'apollo-server-express';
 
 import typeDefs from './typeDefs';
@@ -9,7 +10,14 @@ require('dotenv').config();
 
 const app = express();
 
-const { PORT, NODE_ENV, mongoDB } = process.env;
+const {
+  PORT,
+  NODE_ENV,
+  mongoDB,
+  SESSION_NAME,
+  SESSION_SECRET,
+  SESSION_LIFETIME
+} = process.env;
 
 mongoose
   .connect(
@@ -24,6 +32,19 @@ mongoose
   });
 
 app.disable('x-powered-by');
+
+app.use(
+  session({
+    name: SESSION_NAME,
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: SESSION_LIFETIME,
+      sameSite: true
+    }
+  })
+);
 
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
