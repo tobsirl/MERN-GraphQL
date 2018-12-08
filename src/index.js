@@ -34,6 +34,14 @@ mongoose
 
 app.disable('x-powered-by');
 
+const RedisStore = connectRedis(session);
+
+const store = new RedisStore({
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  pass: REDIS_PASSWORD
+})
+
 app.use(
   session({
     name: SESSION_NAME,
