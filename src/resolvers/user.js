@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcryptjs from 'bcryptjs';
 import Joi from 'joi';
-import { SignUp, signIn } from '../schemas';
+import { signUp, signIn } from '../schemas';
 import { UserInputError } from 'apollo-server-express';
 
 import User from '../models/user';
@@ -25,7 +25,7 @@ export default {
     signUp: async (root, args, context, info) => {
       // TODO: not auth, validation
 
-      await Joi.validate(args, SignUp, { abortEarly: false });
+      await Joi.validate(args, signUp, { abortEarly: false });
 
       return User.create(args);
     }
