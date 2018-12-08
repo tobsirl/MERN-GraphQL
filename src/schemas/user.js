@@ -16,7 +16,19 @@ export default Joi.object().keys({
     .required()
     .label('Name'),
   password: Joi.string()
+    .min(8)
+    .max(50)
     .regex(/^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d).*$/)
     .required()
     .label('Password')
+    .options({
+      language: {
+        string: {
+          regex: {
+            base:
+              'must have at least one lowercase letter, one uppercase letter, and one digit.'
+          }
+        }
+      }
+    })
 });
