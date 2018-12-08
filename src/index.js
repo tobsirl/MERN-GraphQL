@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import connectRedis from 'connect-redis';
 import { ApolloServer } from 'apollo-server-express';
 
 import typeDefs from './typeDefs';
