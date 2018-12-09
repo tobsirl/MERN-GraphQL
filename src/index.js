@@ -63,7 +63,8 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
   resolvers,
-  playground: NODE_ENV !== 'production'
+  playground: NODE_ENV !== 'production',
+  context: ({ req, res }) => ({ req, res })
 });
 
 server.applyMiddleware({ app }); // app is from an existing express app

@@ -8,12 +8,18 @@ import User from '../models/user';
 
 export default {
   Query: {
-    users: (root, args, context, info) => {
+    users: (root, args, { req }, info) => {
       // TODO auth, projection
+
+      checkSignedIn(req);
+
       return User.find({});
     },
     user: (root, { id }, context, info) => {
       // TODO auth, projection, sanitization
+
+      checkSignedIn();
+
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new UserInputError(`${id} is not a valid user ID.`);
       }
@@ -24,6 +30,8 @@ export default {
   Mutation: {
     signUp: async (root, args, context, info) => {
       // TODO: not auth, validation
+
+      checkSignedOut();
 
       await Joi.validate(args, signUp, { abortEarly: false });
 
