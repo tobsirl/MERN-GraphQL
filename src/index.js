@@ -17,7 +17,10 @@ const {
   mongoDB,
   SESSION_NAME,
   SESSION_SECRET,
-  SESSION_LIFETIME
+  SESSION_LIFETIME,
+  REDIS_HOST,
+  REDIS_PORT,
+  REDIS_PASSWORD
 } = process.env;
 
 mongoose
@@ -40,10 +43,11 @@ const store = new RedisStore({
   host: REDIS_HOST,
   port: REDIS_PORT,
   pass: REDIS_PASSWORD
-})
+});
 
 app.use(
   session({
+    store,
     name: SESSION_NAME,
     secret: SESSION_SECRET,
     resave: false,
