@@ -3,6 +3,7 @@ import bcryptjs from 'bcryptjs';
 import Joi from 'joi';
 import { signUp, signIn } from '../schemas';
 import { UserInputError } from 'apollo-server-express';
+import * as Auth from '../auth';
 
 import User from '../models/user';
 
@@ -11,14 +12,14 @@ export default {
     users: (root, args, { req }, info) => {
       // TODO auth, projection
 
-      checkSignedIn(req);
+      Auth.checkSignedIn(req);
 
       return User.find({});
     },
-    user: (root, { id }, context, info) => {
+    user: (root, { id }, { req }, info) => {
       // TODO auth, projection, sanitization
 
-      checkSignedIn();
+      Auth.checkSignedIn(req);
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new UserInputError(`${id} is not a valid user ID.`);
@@ -28,10 +29,10 @@ export default {
     }
   },
   Mutation: {
-    signUp: async (root, args, context, info) => {
+    signUp: async (root, args, { req }, info) => {
       // TODO: not auth, validation
 
-      checkSignedOut();
+      Auth.checkSignedOut(req);
 
       await Joi.validate(args, signUp, { abortEarly: false });
 
