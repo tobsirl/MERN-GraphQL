@@ -9,6 +9,12 @@ import User from '../models/user';
 
 export default {
   Query: {
+    me: (root, args, { req }, info) => {
+      // TODO projection
+      Auth.checkSignedIn(req);
+
+      return User.findById(req.session.userId);
+    },
     users: (root, args, { req }, info) => {
       // TODO auth, projection
 
