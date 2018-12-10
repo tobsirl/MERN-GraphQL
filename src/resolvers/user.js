@@ -43,6 +43,14 @@ export default {
       await Joi.validate(args, signUp, { abortEarly: false });
 
       return User.create(args);
+    },
+    signIn: (root, args, { req }, info) => {
+      const { userId } = req.session;
+
+      if (userId) {
+        return User.findById(userId);
+      }
+      return user;
     }
   }
 };
