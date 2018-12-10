@@ -50,7 +50,14 @@ export default {
       if (userId) {
         return User.findById(userId);
       }
+
+      Joi.validate(args, schema);
+
       return user;
+    },
+    signOut: (root, args, { req }, info) => {
+
+      
     }
   }
 };

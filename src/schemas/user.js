@@ -32,3 +32,10 @@ export default Joi.object().keys({
       }
     })
 });
+
+export const signUp = Joi.object().keys({
+  email,
+  username,
+  name,
+  password
+});
