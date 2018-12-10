@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcryptjs from 'bcryptjs';
 import Joi from 'joi';
 import { signUp, signIn } from '../schemas';
 import { UserInputError } from 'apollo-server-express';
@@ -44,20 +43,23 @@ export default {
 
       return User.create(args);
     },
-    signIn: (root, args, { req }, info) => {
+    signIn: async (root, args, { req }, info) => {
       const { userId } = req.session;
 
       if (userId) {
         return User.findById(userId);
       }
 
-      Joi.validate(args, schema);
+      await Joi.validate(args, signIn, { abortEarly: false });
+
+      const { email, password } = args;
+
+      const user = await User.findOne({ email });
+
+      const user = await Auth.attemptSignIn(email, password);
 
       return user;
     },
-    signOut: (root, args, { req }, info) => {
-
-      
-    }
+    signOut: (root, args, { req }, info) => {}
   }
 };

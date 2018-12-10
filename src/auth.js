@@ -1,5 +1,9 @@
 import { AuthenticationError } from 'apollo-server-express';
 
+export const attemptSignIn = (email, password) => {
+
+}
+
 const signedIn = req => req.session.userId;
 
 export const checkSignedIn = req => {
