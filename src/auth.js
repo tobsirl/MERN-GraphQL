@@ -1,8 +1,15 @@
 import { AuthenticationError } from 'apollo-server-express';
+import User from './models/user';
 
-export const attemptSignIn = (email, password) => {
+export const attemptSignIn = async (email, password) => {
+  const message = 'Incorrect email or password. Please try again.';
 
-}
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new AuthenticationError(message);
+  }
+};
 
 const signedIn = req => req.session.userId;
 

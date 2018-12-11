@@ -54,7 +54,7 @@ export default {
 
       const { email, password } = args;
 
-      const user = await User.findOne({ email });
+      // const user = await User.findOne({ email });
 
       const user = await Auth.attemptSignIn(email, password);
 
