@@ -9,6 +9,8 @@ export const attemptSignIn = async (email, password) => {
   if (!user) {
     throw new AuthenticationError(message);
   }
+
+  user.matchesPassword()
 };
 
 const signedIn = req => req.session.userId;

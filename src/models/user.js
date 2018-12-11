@@ -41,6 +41,10 @@ userSchema.statics.doesntExist = async function(optons) {
   return (await this.where(options).countDocuments()) === 0;
 };
 
+userSchema.methods.matchesPassword = function(password) {
+  return compare(password, this.password);
+};
+
 const User = mongoose.model('User', userSchema);
 
 export default User;
