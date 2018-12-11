@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Joi from 'joi';
-import { signUp, signIn } from '../schemas';
+import { signUp, signIn, signOut } from '../schemas';
 import { UserInputError } from 'apollo-server-express';
 import * as Auth from '../auth';
 
@@ -54,12 +54,14 @@ export default {
 
       const { email, password } = args;
 
-      // const user = await User.findOne({ email });
-
       const user = await Auth.attemptSignIn(email, password);
+
+      req.session.userId = user.id;
 
       return user;
     },
-    signOut: (root, args, { req }, info) => {}
+    signOut: (root, args, { req }, info) => {
+      Auth.checkSignedIn(req);
+    }
   }
 };
