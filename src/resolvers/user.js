@@ -60,8 +60,10 @@ export default {
 
       return user;
     },
-    signOut: (root, args, { req }, info) => {
+    signOut: (root, args, { req, res }, info) => {
       Auth.checkSignedIn(req);
+
+      return Auth.signOut(req, res);
     }
   }
 };
