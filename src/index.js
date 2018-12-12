@@ -63,7 +63,14 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
   resolvers,
-  playground: NODE_ENV !== 'production',
+  cors: false,
+  playground: NODE_ENV
+    ? false
+    : {
+        settings: {
+          'request.credentials.request.credentials': 'include'
+        }
+      },
   context: ({ req, res }) => ({ req, res })
 });
 
