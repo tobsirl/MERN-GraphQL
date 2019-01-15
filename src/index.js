@@ -53,7 +53,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: SESSION_LIFETIME,
+      maxAge: parseInt(SESSION_LIFETIME),
       sameSite: true
     }
   })
@@ -63,9 +63,8 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
   resolvers,
-  cors: false,
   playground: NODE_ENV
-    ? false
+    ? true
     : {
         settings: {
           'request.credentials.request.credentials': 'include'
@@ -74,7 +73,7 @@ const server = new ApolloServer({
   context: ({ req, res }) => ({ req, res })
 });
 
-server.applyMiddleware({ app }); // app is from an existing express app
+server.applyMiddleware({ app, cors: false }); // app is from an existing express app
 
 app.listen({ port: PORT }, () =>
   console.log(
