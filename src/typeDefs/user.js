@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
   extend type Query {
-    me: User
+    me: User @auth
     user(id: ID!): User
     users: [User!]!
   }
@@ -12,7 +12,7 @@ export default gql`
       username: String!
       name: String!
       password: String!
-    ): User
+    ): User @guest
     signIn(email: String!, password: String!): User
     signOut: Boolean
   }
