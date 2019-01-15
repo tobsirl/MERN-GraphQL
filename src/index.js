@@ -7,6 +7,8 @@ import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 
+import schemaDirectives from './directives';
+
 require('dotenv').config();
 
 const app = express();
@@ -63,6 +65,7 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
   resolvers,
+  schemaDirectives, 
   playground: NODE_ENV
     ? true
     : {
