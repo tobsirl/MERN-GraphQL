@@ -1,5 +1,5 @@
-import AuthDirective from './directives/auth';
-import GuestDirective from './directives/guest';
+import AuthDirective from './auth';
+import GuestDirective from './guest';
 
 export default {
   auth: AuthDirective,
