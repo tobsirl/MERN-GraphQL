@@ -21,13 +21,13 @@ export const attemptSignIn = async (email, password) => {
 
 const signedIn = req => req.session.userId;
 
-export const checkSignedIn = req => {
+export const ensureSignedIn = req => {
   if (!signedIn(req)) {
     throw new AuthenticationError('You must be signed in');
   }
 };
 
-export const checkSignedOut = req => {
+export const ensureSignedOut = req => {
   if (signedIn(req)) {
     throw new AuthenticationError('You are already signed in');
   }
@@ -37,10 +37,10 @@ export const signOut = (req, res) =>
   new Promise((resolve, reject) => {
     req.session.destroy(err => {
       const { SESSION_NAME } = process.env;
-      if (err) reject(err)
+      if (err) reject(err);
 
-      res.clearCookie(SESSION_NAME)
+      res.clearCookie(SESSION_NAME);
 
-      resolve(true)
+      resolve(true);
     });
   });
