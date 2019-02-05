@@ -5,7 +5,7 @@ export default gql`
     id: ID!
     body: String!
     sender: User!
-    updatedAt: Strings!
-    createdAt: Strings!
+    updatedAt: String!
+    createdAt: String!
   }
 `;

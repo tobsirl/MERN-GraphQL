@@ -7,7 +7,7 @@ export default gql`
     user: [User!]!
     messages: [Message!]!
     lastMessage: Message
-    updatedAt: Strings!
-    createdAt: Strings!
+    updatedAt: String!
+    createdAt: String!
   }
 `;
