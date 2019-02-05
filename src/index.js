@@ -52,7 +52,7 @@ app.use(
     store,
     name: SESSION_NAME,
     secret: SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       maxAge: parseInt(SESSION_LIFETIME),
